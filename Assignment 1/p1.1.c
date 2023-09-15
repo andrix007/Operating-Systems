@@ -1,3 +1,4 @@
+ // Andrei Bancila
  #define _DEFAULT_SOURCE
 
  #include <string.h>
