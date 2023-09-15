@@ -1,0 +1,9 @@
+Problem:
+    The problem here was that the program tried to access splitv[j],
+    which at the end of each poniter vector was NULL, so it would
+    just crash with segmentation fault.
+
+    Solution:
+    I fixed it by adding a vector f, which stores the number of 
+    words per pointer vector so it wouldn't come to try to access 
+    the NULL values.

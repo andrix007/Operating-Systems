@@ -9,7 +9,7 @@ with open("outputCode.txt", "w") as f1:
                 if not line[i].isdigit():
                     pos = i
                     break
-            line = line[pos:]
+            line = line[pos+1:]
             f1.write(line)
 
 with open("outputCode.txt", "r") as f:

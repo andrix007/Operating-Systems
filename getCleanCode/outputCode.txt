@@ -1,61 +1,40 @@
- #define _DEFAULT_SOURCE
-
- #include <string.h>
- #include <stdio.h>
- #include <stdlib.h>
-
- /*
- * Count the number of characters in string that are an element of the
- * character set delim. Returns 0 if none of the characters in string
- * is in the character set delim or the string is empty.
- */
-
- size_t strcnt(const char *string, const char *delim)
- {
- size_t cnt = 0;
-
- for (const char *s = string; *s; s++) {
- for (const char *d = delim; *d; d++) {
- if (*s == *d) {
- cnt++;
- break;
- }
- }
- }
- return cnt;
- }
-
- /*
- * Split the string whenever a character appears that is in the
- * character set delim. Return a NULL terminated vector of pointers to
- * the sub-strings.
- */
-
- char ** strsplit(char **string, const char *delim)
- {
- char *token;
- size_t cnt = strcnt(*string, delim);
-
- char **splitv = calloc(cnt + 1, sizeof(char));
- if (splitv) {
- for (int i = 0; (token = strsep(string, delim)); i++) {
- splitv[i] = token;
- }
- }
- return splitv;
- }
-
- int main(int argc, char *argv[])
- {
- for (int i = 1; i < argc; i++) {
- char **splitv = strsplit(&argv[i], " ");
- if (splitv) {
- for (int j = 0; splitv[j]; j++) {
- (void) puts(splitv[j]);
- }
- (void) free(splitv);
- }
- }
-
- return EXIT_SUCCESS;
- }
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+char *strndup(const char *s, size_t n)
+{
+char *p = NULL;
+if (s) {
+size_t len = strlen(s);
+if (n < len) {
+len = n;
+}
+p = (char *) malloc(len+1);
+if (p) {
+strncpy(p, s, len);
+}
+}
+return p;
+}
+int main(void)
+{
+static char m[] = "Hello World!";
+size_t len = strlen(m);
+for (size_t n = 1; n <= len; n++) {
+char *p = strndup(m, n);
+if (! p) {
+perror("strndup");
+return EXIT_FAILURE;
+}
+if (puts(p) == EOF) {
+perror("puts");
+return EXIT_FAILURE;
+}
+free(p);
+}
+if (fflush(stdout) == EOF) {
+perror("fflush");
+return EXIT_FAILURE;
+}
+return EXIT_SUCCESS;
+}
