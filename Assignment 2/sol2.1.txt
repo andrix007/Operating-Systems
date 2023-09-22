@@ -1,0 +1,164 @@
+#copyright Andrei Bancila
+
+main:
++-------------------+
+|                   | <- (Empty Stack)
++-------------------+
+
+    addi sp,sp,-48 //decreases stack pointer by 48 bytes, effectively allocating 48 bytes
++-------------------+
+|                   | <- Unused (48 bytes)
++-------------------+
+
+    sd s0,40(sp) //saves the register value s0 into 40 bytes above the current stack poniter
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+
+
+
+    addi s0,sp,48 //gets the original stack pointer and stores it in s0
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+
+
+    mv a5,a0 //copies the value from a0 regsiter to a5 register
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+|                   | <- a5 (a5 after mv)
++-------------------+
+
+    
+    sd a1,-48(s0) // stores the a1 register 48 bytes below the pointer s0
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+|                   | <- a5 (a5 after mv)
++-------------------+
+
+    sw a5,-36(s0) // stores the a5 register 36 bytes below the pointer s0
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- a5
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+
+    sw zero,-20(s0) // stores the zero register 20 bytes below the pointer s0
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- a5
++-------------------+
+|                   | <- 0
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+
+    lw a5,-20(s0) // loads value from register a5 into offset of 20 bytes from s0
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- a5
++-------------------+
+|                   | <- 0
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+
+    mv a0,a5 // moves value from register a5 into register a0
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- a0 (a0 after mv)
++-------------------+
+|                   | <- 0
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- Saved s0
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+
+    ld s0,40(sp) // loads the doubleword at an offset of 40 bytes from stack pointer into s0
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- a0
++-------------------+
+|                   | <- 0
++-------------------+
+|                   | <- Unused (8 bytes)
++-------------------+
+|                   | <- New s0 (s0 after addi)
++-------------------+
+|                   | <- Unused (40 bytes)
++-------------------+
+|                   | <- Saved s0 (Original value)
++-------------------+
+
+    addi sp,sp,48 // returns the stack pointer to it's original position
++-------------------+
+|                   | <- a1
++-------------------+
+|                   | <- a0
++-------------------+
+|                   | <- 0
++-------------------+
+|                   | <- Unused (48 bytes)
++-------------------+
+
+    jr ra // jumps register to the return address, effectively ending this sequence
+
++-------------------+
+|                   | <- (Empty Stack)
++-------------------+
+
