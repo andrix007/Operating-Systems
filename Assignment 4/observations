@@ -1,0 +1,17 @@
+coins: 0000000000XXXXXXXXXX (start - global lock)
+coins: 0000000000XXXXXXXXXX (end - global lock)
+100 threads x 10000 flips: 478.165 ms
+coins: 0000000000XXXXXXXXXX (start - iteration lock)
+coins: 0000000000XXXXXXXXXX (end - iteration lock)
+100 threads x 10000 flips: 4646.310 ms
+coins: 0000000000XXXXXXXXXX (start - coin lock)
+coins: 0000000000XXXXXXXXXX (end - coin lock)
+100 threads x 10000 flips: 1460.325 ms
+
+This is the output of the program
+
+We can observe that the global lock method only method takes the least time since it's only one lock & unlock.
+
+The second method is the least optimized since it applies the first method pretty much at every iteration.
+
+The third method combines the best of both worlds, effectiveness and time complexity since it gives each coin a lock.
