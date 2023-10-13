@@ -1,0 +1,27 @@
+function stand_visit_traveler():
+    P(mutex) // Enter critical section
+    if drivers_waiting > 0:
+        drivers_waiting -= 1
+        V(driverSem) // Notify a waiting driver
+    else:
+        travelers_waiting += 1
+        V(mutex) // Exit critical section
+        P(travelerSem) // Wait for a driver
+        // At this point, a driver has arrived and is ready to take the traveler
+    end if
+    // Logic for traveler leaving the stand
+    V(mutex) // Exit critical section
+
+function stand_visit_driver():
+    P(mutex) // Enter critical section
+    if travelers_waiting > 0:
+        travelers_waiting -= 1
+        V(travelerSem) // Notify a waiting traveler
+    else:
+        drivers_waiting += 1
+        V(mutex) // Exit critical section
+        P(driverSem) // Wait for a traveler
+        // At this point, a traveler has arrived and is ready to board the taxi
+    end if
+    // Logic for driver leaving the stand with traveler(s)
+    V(mutex) // Exit critical section
