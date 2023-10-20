@@ -1,0 +1,65 @@
+6.1 
+According to Banker's algorithm I implemented in python, the system is not safe.
+Safe sequence =  []
+Work =  [1 0 0 2 3]
+Finish =  [False, False, False, False, False]
+Available =  [1 0 0 2 3]
+
+Safe sequence =  [0]
+Work =  [2 5 3 3 4]
+Finish =  [True, False, False, False, False]
+Available =  [1 0 0 2 3]
+
+Safe sequence =  [0, 4]
+Work =  [3 7 6 5 5]
+Finish =  [True, False, False, False, True]
+Available =  [1 0 0 2 3]
+
+Safe sequence =  [0, 4, 3]
+Work =  [6 8 7 6 5]
+Finish =  [True, False, False, True, True]
+Available =  [1 0 0 2 3]
+
+False
+
+6.2
+The resource allocation graph (RAG) is described as follows:
+
+    Resource 1 -> Process 1
+    Process 1 -> Resource 1
+    Resource 2 -> Process 1
+    Process 2 -> Resource 2
+    Resource 3 -> Process 2
+    Process 2 -> Resource 4
+    Process 3 -> Resource 1
+    Resource 2 -> Process 3
+    Resource 3 -> Process 3
+    Resource 4 -> Process 3
+
+From the above description:
+
+    Process 1 has requested and is allocated Resource 1.
+    Process 1 is also allocated Resource 2.
+    Process 2 has requested Resources 2 and 4, and is allocated Resource 3.
+    Process 3 has requested Resource 1 and is allocated Resources 2, 3, and 4.
+
+To determine if the system is deadlocked, we need to check for the presence of cycles in the RAG. If there's a cycle, then the system is in deadlock.
+
+Given the RAG description, we can visually inspect for cycles:
+
+    There is a cycle involving Process 1 and Resource 1.
+    There's no apparent cycle involving Processes 2 or 3.
+
+From the above observation, the system is in a deadlock due to the cycle involving Process 1 and Resource 1.
+
+6.3
+
+The schedule for the First-Come First-Served (FCFS) scheduling strategy is:
+A, A, A, A, A, A, A, A, A, B, B, B, B, B, B, B, B, C, C, D, D, D, D, D, E, E, E, E, F
+
+The schedule for the Longest Processing Time First (LPTF) scheduling strategy is:
+A, A, A, A, A, A, A, A, A, B, B, B, B, B, B, B, B, D, D, D, D, D, E, E, E, E, C, C, F
+
+The schedule for the Round Robin (RR) scheduling strategy with a time slice of 1 time unit is:
+A, A, A, A, A, B, A, B, C, A, B, D, C, A, B, D, E, A, B, F, D, E, B, D, E, B, D, E, B
+

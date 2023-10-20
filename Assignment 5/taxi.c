@@ -82,7 +82,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < num_drivers; i++) {
         driver_ids[i] = (int*) malloc(sizeof(int));
         *driver_ids[i] = i;
-        pthread_create(&drivers[i], NULL, driver_function, driver_ids[i]);
+        pthread_create(&drivers[ i], NULL, driver_function, driver_ids[i]);
     }
 
     for (int i = 0; i < num_travelers; i++) {
